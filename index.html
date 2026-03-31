@@ -50,18 +50,92 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .nav-cta{background:var(--accent)!important;color:#050a05!important;padding:9px 20px;font-weight:500}
 .nav-cta::after{display:none!important}
 .nav-cta:hover{background:var(--white)!important}
+.nav-cta.active{background:var(--white)!important;color:#050a05!important}
+.nav-cta.active{background:var(--white)!important;color:#050a05!important}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none}
 .burger span{display:block;width:22px;height:1px;background:var(--white);transition:.3s}
 
+
 /* ── MOBILE NAV ── */
 .mobile-nav{
-  display:none;position:fixed;inset:0;background:var(--black);
-  z-index:9999;flex-direction:column;align-items:center;justify-content:center;gap:20px;
+  display:none;position:fixed;inset:0;
+  background:var(--black);
+  z-index:9999;flex-direction:column;align-items:flex-start;justify-content:center;
+  padding:0 8vw;
+  overflow:hidden;
+}
+.mobile-nav::before{
+  content:'';position:absolute;bottom:-20%;right:-10%;
+  width:70vw;height:70vw;max-width:380px;max-height:380px;
+  background:radial-gradient(ellipse at center,rgba(200,240,62,.12) 0%,transparent 70%);
+  pointer-events:none;border-radius:50%;
 }
 .mobile-nav.open{display:flex}
-.mobile-nav a{font-family:var(--fd);font-size:28px;font-weight:300;color:var(--white);text-decoration:none;letter-spacing:.02em;transition:color .2s;cursor:pointer}
-.mobile-nav a:hover{color:var(--accent)}
-.mnav-close{position:absolute;top:18px;right:5vw;background:none;border:1px solid var(--border);color:var(--white);width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px}
+/* Liens nav mobile */
+.mobile-nav-links{
+  display:flex;flex-direction:column;gap:0;
+  width:100%;
+}
+.mobile-nav a{
+  font-family:var(--fd);
+  font-size:clamp(32px,10vw,52px);
+  font-weight:300;
+  color:rgba(245,244,240,.18);
+  text-decoration:none;
+  letter-spacing:-.01em;
+  line-height:1.15;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  transition:color .3s, transform .3s;
+  cursor:pointer;
+  position:relative;
+}
+.mobile-nav a:last-child{border-bottom:none}
+.mobile-nav a .mnav-num{
+  font-family:var(--fb);font-size:10px;letter-spacing:.14em;
+  color:rgba(245,244,240,.18);text-transform:uppercase;
+  transition:color .3s;
+  align-self:flex-start;margin-top:6px;
+}
+.mobile-nav a .mnav-arrow{
+  opacity:0;transform:translateX(-6px);
+  transition:opacity .25s,transform .25s;
+  color:var(--accent);font-size:20px;
+}
+.mobile-nav a:hover{color:var(--white);transform:translateX(6px)}
+.mobile-nav a:hover .mnav-num{color:var(--accent)}
+.mobile-nav a:hover .mnav-arrow{opacity:1;transform:translateX(0)}
+/* Contact spécial */
+.mobile-nav a.mnav-contact-btn{
+  margin-top:24px;
+  background:var(--accent);color:#050a05!important;
+  padding:14px 22px;border-bottom:none!important;
+  font-family:var(--fb);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  display:inline-flex;width:auto;align-self:flex-start;
+  font-size:clamp(11px,3vw,13px);
+}
+.mobile-nav a.mnav-contact-btn:hover{background:var(--white);transform:translateX(3px)}
+.mobile-nav a.mnav-contact-btn .mnav-num{display:none}
+.mobile-nav a.mnav-contact-btn .mnav-arrow{opacity:0;display:none}
+/* Bottom info */
+.mnav-bottom{
+  position:absolute;bottom:7vh;left:8vw;right:8vw;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.mnav-bottom-brand{
+  font-family:var(--fd);font-size:11px;letter-spacing:.06em;color:rgba(245,244,240,.2);
+}
+.mnav-bottom-contact{
+  font-size:10px;letter-spacing:.1em;color:rgba(245,244,240,.2);text-align:right;line-height:1.6;
+}
+.mnav-close{
+  position:absolute;top:22px;right:5vw;
+  background:none;border:1px solid rgba(255,255,255,.12);
+  color:rgba(245,244,240,.5);width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:16px;transition:all .2s;
+}
 .mnav-close:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ── PAGES ── */
@@ -74,13 +148,54 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 
 /* ── FORMS ── */
 .form-group{margin-bottom:13px}
-.form-group label{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-light);margin-bottom:6px}
-.form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--white);padding:11px 13px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .2s;appearance:none;border-radius:0}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
-.form-group textarea{resize:vertical;min-height:85px}
+.form-group label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent); /* Couleur fidèle à ton image */
+  margin-bottom: 10px;
+  font-family: var(--fb);
+}
+.form-group input:not(.phone-num-input),.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--white);padding:11px 13px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .2s;appearance:none;border-radius:0}
+.form-group input:not(.phone-num-input):focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--accent)}
+/* Autres champs (Nom, Email, Message) */
+.form-group input:not(.phone-num-input), 
+.form-group textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 15px 20px;
+  font-family: var(--fb);
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s;
+}
 .form-group select option{background:var(--gray-dark)}
-.form-submit{width:100%;background:var(--accent);color:#050a05;border:none;padding:14px;font-family:var(--fb);font-size:11.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:5px}
-.form-submit:hover{background:var(--white)}
+/* ── BOUTON ENVOYER (Comme ton image) ── */
+.form-submit {
+  width: 100%;
+  background: var(--accent);
+  color: #050a05;
+  border: none;
+  padding: 18px;
+  font-family: var(--fb);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: transform 0.2s, background 0.3s;
+}
+.form-submit:hover {
+  background: #d9ff50;
+  transform: translateY(-2px);
+}
 .form-submit:disabled{opacity:.6;cursor:not-allowed}
 
 /* ════════════════════════════════════════════════
@@ -139,21 +254,32 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
   50%{opacity:.35;transform:scale(.75) rotate(22deg)}
 }
 
+/* ── HERO DESKTOP LAYOUT (2 colonnes) ── */
+.hero-desktop-layout{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 370px;
+  gap:0;
+  align-items:center;
+  width:100%;
+  padding:100px 5vw 60px 8vw;
+  min-height:100vh;
+  box-sizing:border-box;
+  z-index:1;
+}
+.hero-desktop-layout > *{position:relative;z-index:1;}
+
 /* Contenu principal */
 .hero-center{
-  position:relative;z-index:2;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
-  /* Remonté — padding-top = hauteur header + espace */
-  padding:100px 6vw 0;
-  width:100%;
+  display:flex;flex-direction:column;align-items:flex-start;text-align:left;
+  padding-right:50px;
 }
 
 /* Titre 3 lignes */
 .hero-main-title{
   font-family:var(--fd);font-weight:300;line-height:.92;
   color:var(--white);
-  font-size:clamp(60px,9vw,128px);
-  /* Serré vers le bas pour rapprocher le bouton */
+  font-size:clamp(52px,6vw,100px);
   margin-bottom:36px;
 }
 .line-reach{display:block;font-style:normal}
@@ -174,7 +300,6 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 /* ── BOUTON PILL REDESIGNÉ ── */
 .hero-cta-btn{
   display:inline-flex;align-items:center;gap:10px;
-  /* Fond sombre semi-transparent + bordure blanche subtile */
   background:rgba(20,28,20,.75);
   border:1px solid rgba(255,255,255,.28);
   color:var(--white);
@@ -184,7 +309,6 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
   cursor:pointer;border-radius:100px;
   transition:all .28s ease;
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  /* Ombre douce pour le faire ressortir sur le fond */
   box-shadow:0 0 0 1px rgba(200,240,62,.12), inset 0 1px 0 rgba(255,255,255,.06);
 }
 .hero-cta-btn:hover{
@@ -194,33 +318,181 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .hero-cta-btn svg{transition:transform .25s}
 .hero-cta-btn:hover svg{transform:translateX(3px)}
 
-/* ── BLOC TEXTE BAS — regroupé juste sous le bouton ── */
+/* ── BLOC TEXTE BAS ── */
 .hero-bottom-text{
-  position:relative;z-index:2;
-  /* Regroupé directement sous le bouton, pas en position:absolute */
   margin-top:20px;
-  padding:0 6vw 56px;
-  display:flex;flex-direction:column;align-items:center;text-align:center;
+  display:flex;flex-direction:column;align-items:flex-start;text-align:left;
   gap:8px;
-  width:100%;
 }
 .hero-bottom-label{
   font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;
   color:rgba(255,255,255,.4);
-  /* Séparateur visuel entre bouton et label */
   padding-top:6px;
 }
 .hero-bottom-tagline{
   font-family:var(--fd);
-  font-size:clamp(16px,2.1vw,24px);
+  font-size:clamp(14px,1.5vw,19px);
   font-weight:300;line-height:1.3;
-  color:var(--white);max-width:620px;
+  color:var(--white);max-width:520px;
 }
 .hero-bottom-tagline em{font-style:italic}
 .hero-bottom-sub{
-  font-size:13px;color:rgba(245,244,240,.46);
-  max-width:540px;line-height:1.72;
+  font-size:12px;color:rgba(245,244,240,.46);
+  max-width:460px;line-height:1.72;
 }
+
+/* ── HERO FORM COLONNE DROITE ── */
+.hero-form-col{
+  position:relative;
+  display:flex;flex-direction:column;
+  align-self:center;
+}
+.hero-form-card {
+  background: rgba(10, 16, 10, 0.95);
+  border: 1px solid var(--accent);
+  border-top: 4px solid var(--accent);
+  padding: 35px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.hero-form-card-label{
+  font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.hero-form-card-title{
+  font-family:var(--fd);font-size:26px;font-weight:300;color:var(--white);
+  margin-bottom:4px;line-height:1.1;
+}
+.hero-form-card-sub{
+  font-size:11px;color:rgba(245,244,240,.45);margin-bottom:16px;line-height:1.5;
+}
+.hero-form-card .form-group{margin-bottom:9px}
+.hero-form-card .form-group label{color:rgba(245,244,240,.5);font-size:9px}
+.hero-form-card .form-group input,
+.hero-form-card .form-group textarea,
+.hero-form-card .form-group select{
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  color:var(--white);font-size:12px;padding:10px 12px;
+}
+.hero-form-card .form-group input::placeholder,
+.hero-form-card .form-group textarea::placeholder{color:rgba(245,244,240,.3)}
+.hero-form-card .form-group input:focus,
+.hero-form-card .form-group textarea:focus,
+.hero-form-card .form-group select:focus{border-color:var(--accent)}
+.hero-form-card .form-group select{color:var(--white)}
+.hero-form-card .form-group select option{background:var(--gray-dark);color:var(--white)}
+.hero-form-card .form-submit{
+  background:var(--accent);color:#050a05;
+  margin-top:6px;padding:13px;font-size:11px;font-weight:500;
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-form-card .form-submit:hover{background:var(--white);color:#050a05}
+.hero-form-close{
+  position:absolute;top:10px;right:10px;
+  background:none;border:1px solid rgba(255,255,255,.15);
+  color:rgba(245,244,240,.4);width:24px;height:24px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:11px;transition:all .2s;
+}
+.hero-form-close:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ── Phone field with country code ── */
+.phone-input-wrap{
+  display:flex;
+  width:100%;
+}
+
+.phone-code-select {
+  width: 100px;
+  flex-shrink: 0;
+  height: 55px;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 14px;
+  padding: 0 12px;
+  cursor: pointer;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  outline: none;
+  appearance: none;
+}
+
+/* ── CORRECTION CHAMP TÉLÉPHONE ── */
+.phone-field {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  height: 55px; /* Plus grand pour le confort */
+  transition: all 0.3s ease;
+}
+
+.phone-code-select:focus,
+.phone-num-input:focus{
+  border-color:var(--accent);
+}
+.phone-code-select option{
+  background:var(--gray-dark);
+  color:var(--white);
+}
+.phone-num-input {
+  flex: 1;
+  min-width: 0;
+  height: 55px;
+  border: none;
+  background: transparent !important;
+  color: #FFFFFF !important;
+  font-size: 15px !important;
+  padding: 0 16px !important;
+  outline: none !important;
+  display: block;
+}
+
+.phone-field:focus-within {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.phone-num-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+/* Override for the dark hero form card */
+.hero-form-card .phone-code-select{
+  border-right:1px solid rgba(255,255,255,.1);
+  flex-shrink: 0;
+  width: 90px;
+}
+.hero-form-card .phone-code-select:focus{border-color:var(--accent);border-right:none}
+.hero-form-card .phone-num-input{
+  background: transparent !important;
+  color: #FFFFFF !important;
+  font-size: 14px !important;
+  padding: 0 12px !important;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none !important;
+  outline: none !important;
+}
+.hero-form-card .phone-num-input:focus{border-color:var(--accent)}
+
+.hero-form-card .phone-field{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+}
+/* Remove old conflicting phone CSS */
+
+/* ── Ancien hero-form-wrap (caché sur desktop) ── */
+.hero-form-wrap{display:none}
+.hero-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
@@ -273,7 +545,7 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 /* ── SERVICES LIST ── */
 .services-list{padding:0 5vw 90px;display:flex;flex-direction:column;gap:1px;background:var(--border)}
 .service-row{background:var(--black);display:grid;grid-template-columns:230px 1fr 180px;gap:0;cursor:pointer;transition:background .3s;position:relative}
-.service-row::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width .3s}
+.service-row::after{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width .3s;pointer-events:none}
 .service-row:hover{background:var(--gray-dark)}
 .service-row:hover::after{width:3px}
 .row-img{width:230px;height:185px;object-fit:cover;display:block;filter:grayscale(40%) brightness(.6);transition:filter .4s;flex-shrink:0}
@@ -289,9 +561,9 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .row-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ── MODAL ── */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9000;backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
 .modal-overlay.open{display:flex}
-.modal{background:var(--gray-dark);border:1px solid var(--border);max-width:620px;width:100%;max-height:92vh;overflow-y:auto;position:relative}
+.modal{background:var(--gray-dark);border:1px solid var(--border);max-width:620px;width:100%;position:relative;flex-shrink:0;margin:auto}
 .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent)}
 .modal-header{padding:30px 30px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
 .modal-icon{width:46px;height:46px;border:1px solid rgba(200,240,62,.3);display:flex;align-items:center;justify-content:center;color:var(--accent);margin-bottom:14px}
@@ -369,6 +641,11 @@ nav a:hover::after,nav a.active::after{transform:scaleX(1)}
 .social-link-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 .contact-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
+/* Fix champ telephone formulaire Contact */
+#contactForm .phone-field{display:flex !important;flex-direction:row !important;align-items:center !important;overflow:hidden}
+#contactForm .phone-code-select{flex:0 0 110px !important;width:110px !important;height:55px !important}
+#contactForm .phone-num-input{flex:1 1 auto !important;width:auto !important;min-width:0 !important;height:55px !important;display:block !important;pointer-events:auto !important;cursor:text !important}
+
 /* ── FOOTER ── */
 footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48px 5vw 24px}
 .footer-top{display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;padding-bottom:38px;border-bottom:1px solid var(--border);margin-bottom:24px}
@@ -394,6 +671,7 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
   .contact-info-side{border-left:none;padding-left:0;border-top:1px solid var(--border);padding-top:40px}
   .product-modal-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr}
+  .hero-form-wrap{margin-left:6vw;margin-right:6vw;max-width:calc(100% - 12vw)}
 }
 @media(max-width:900px){
   .services-grid{grid-template-columns:1fr 1fr}
@@ -409,17 +687,29 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
   .burger{display:flex}
   header{height:60px;padding:0 4vw}
 
-  /* Hero mobile */
-  .hero-center{padding-top:86px;padding-left:4vw;padding-right:4vw}
-  .hero-main-title{font-size:clamp(48px,13vw,84px);margin-bottom:28px}
+  /* Hero mobile — revient à la disposition verticale */
+  .hero-desktop-layout{
+    grid-template-columns:1fr;
+    padding:86px 4vw 36px;
+    min-height:auto;
+    gap:28px;
+  }
+  .hero-center{padding-right:0;align-items:center;text-align:center}
+  .hero-main-title{font-size:clamp(48px,13vw,84px);margin-bottom:20px}
   .hero-cta-btn{font-size:10.5px;padding:13px 28px}
-  .hero-bottom-text{padding:0 4vw 40px;gap:7px;margin-top:16px}
+  .hero-bottom-text{padding:0;gap:5px;margin-top:12px;align-items:center;text-align:center}
   .hero-bottom-tagline{font-size:15px}
   .hero-bottom-sub{font-size:12px}
   .hero-sparkle{font-size:14px;top:10%;right:4%}
+  /* Formulaire mobile — garde hero-form-col visible */
+  .hero-form-col{display:flex}
+  .hero-form-card{padding:22px 18px 20px}
+  .hero-form-close{display:none}
 
   /* Reste */
   .services-grid{grid-template-columns:1fr}
+  .hero-form-wrap{display:none}
+  .hero-form-row{grid-template-columns:1fr}
   .boutique-grid{grid-template-columns:1fr;padding:0 4vw 72px}
   .section{padding:60px 4vw}
   .page-hero{padding:100px 4vw 48px}
@@ -442,21 +732,36 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
   .stats-bar{padding:0 4vw}
   .stat-item{padding:24px 16px}
   .stat-num{font-size:30px}
-  .mobile-nav a{font-size:26px}
   .modal-header{padding:20px}
   .modal-body{padding:16px 20px 24px}
 }
 @media(max-width:480px){
-  .hero-main-title{font-size:clamp(38px,12.5vw,64px);margin-bottom:22px}
+  .hero-main-title{font-size:clamp(38px,12.5vw,64px);margin-bottom:16px}
   .hero-cta-btn{font-size:10px;padding:12px 24px}
+  .hero-bottom-text{padding:0 4vw 20px;gap:4px;margin-top:10px}
   .hero-bottom-sub{display:none}
   .hero-bottom-tagline{font-size:14px}
   .page-hero-title{font-size:28px}
-  .mobile-nav a{font-size:22px}
-  .mobile-nav{gap:14px}
   .stat-num{font-size:26px}
   .btn-primary{padding:12px 20px;font-size:11px}
   .svc-img{height:130px}
+}
+
+/* FIX CLICK NAV - hero overlay */
+.hero::before,
+.hero::after,
+.hero-stars {
+  pointer-events: none;
+}
+
+.hero {
+  position: relative;
+  z-index: 0;
+}
+
+header {
+  position: fixed;
+  z-index: 99999;
 }
 </style>
 </head>
@@ -465,11 +770,31 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
 <!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
   <button class="mnav-close" onclick="closeMobileNav()">✕</button>
-  <a onclick="navigate('home');closeMobileNav()">Accueil</a>
-  <a onclick="navigate('services');closeMobileNav()">Services</a>
-  <a onclick="navigate('boutique');closeMobileNav()">Boutique</a>
-  <a onclick="navigate('apropos');closeMobileNav()">À propos</a>
-  <a onclick="navigate('contact');closeMobileNav()">Contact</a>
+  <div class="mobile-nav-links">
+    <a id="mnav-home" onclick="navigate('home');closeMobileNav()">
+      <span>Accueil</span>
+      <span class="mnav-num">01</span>
+    </a>
+    <a id="mnav-services" onclick="navigate('services');closeMobileNav()">
+      <span>Services</span>
+      <span class="mnav-num">02</span>
+    </a>
+    <a id="mnav-boutique" onclick="navigate('boutique');closeMobileNav()">
+      <span>Boutique</span>
+      <span class="mnav-num">03</span>
+    </a>
+    <a id="mnav-apropos" onclick="navigate('apropos');closeMobileNav()">
+      <span>À propos</span>
+      <span class="mnav-num">04</span>
+    </a>
+    <a id="mnav-contact" class="mnav-contact-btn" onclick="navigate('contact');closeMobileNav()">
+      Contact →
+    </a>
+  </div>
+  <div class="mnav-bottom">
+    <div class="mnav-bottom-brand">SAMA Digital Agency</div>
+    <div class="mnav-bottom-contact">Dakar, Sénégal<br>+221 76 142 61 72</div>
+  </div>
 </div>
 
 <!-- HEADER -->
@@ -491,7 +816,7 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
     </div>
   </div>
   <nav>
-    <a id="nav-home" class="active" onclick="navigate('home')">Accueil</a>
+    <a id="nav-home" onclick="navigate('home')">Accueil</a>
     <a id="nav-services" onclick="navigate('services')">Services</a>
     <a id="nav-boutique" onclick="navigate('boutique')">Boutique</a>
     <a id="nav-apropos" onclick="navigate('apropos')">À propos</a>
@@ -509,25 +834,53 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
     <div class="hero-stars"></div>
     <div class="hero-sparkle">✦</div>
 
-    <!-- Titre centré -->
-    <div class="hero-center">
-      <h1 class="hero-main-title fade-up">
-        <span class="line-reach">Booste ta</span>
-        <span class="line-new">Visibilité</span>
-        <span class="line-horizons">en ligne</span>
-      </h1>
-      <!-- Bouton pill redesigné -->
-      <button class="hero-cta-btn fade-up fade-up-d2" onclick="navigate('services')">
-        Découvrir nos services
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
+    <!-- Desktop 2-column layout -->
+    <div class="hero-desktop-layout">
+      <!-- Colonne gauche: titre + bouton + texte -->
+      <div class="hero-center">
+        <h1 class="hero-main-title fade-up">
+          <span class="line-reach">Booste ta</span>
+          <span class="line-new">Visibilité</span>
+          <span class="line-horizons">en ligne</span>
+        </h1>
+        <button class="hero-cta-btn fade-up fade-up-d2" onclick="navigate('services')">
+          Découvrir nos services
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="hero-bottom-text fade-up fade-up-d3">
+          <div class="hero-bottom-label">Agence Marketing Digital · Dakar, Sénégal</div>
+          <div class="hero-bottom-tagline">Booste ta visibilité en ligne avec une <em>vraie stratégie digitale</em></div>
+          <p class="hero-bottom-sub">Sama Digital Agency accompagne entrepreneurs et entreprises à développer leur image de marque, créer du contenu impactant et attirer plus de clients.</p>
+        </div>
+      </div>
 
-    <!-- Texte bas — juste sous le bouton, pas de position absolute -->
-    <div class="hero-bottom-text fade-up fade-up-d3">
-      <div class="hero-bottom-label">Agence Marketing Digital · Dakar, Sénégal</div>
-      <div class="hero-bottom-tagline">Booste ta visibilité en ligne avec une <em>vraie stratégie digitale</em></div>
-      <p class="hero-bottom-sub">Sama Digital Agency accompagne entrepreneurs et entreprises à développer leur image de marque, créer du contenu impactant et attirer plus de clients.</p>
+      <!-- Colonne droite: formulaire carte verte -->
+      <div class="hero-form-col fade-up fade-up-d2">
+        <div class="hero-form-card">
+          <button class="hero-form-close" onclick="this.closest('.hero-form-col').style.display='none'">✕</button>
+          <div class="hero-form-card-label">Démarrer maintenant</div>
+          <div class="hero-form-card-title">Contactez-nous</div>
+          <div class="hero-form-card-sub">Recevez une réponse rapide et personnalisée pour votre projet.</div>
+          <form id="homeForm" onsubmit="sendEmail(event,'home')">
+            <div class="form-group"><label>Nom complet *</label><input type="text" name="from_name" placeholder="Votre nom" required></div>
+            <div class="form-group"><label>Email *</label><input type="email" name="from_email" placeholder="votre@email.com" required></div>
+<div class="form-group">
+    <label>Téléphone / WhatsApp</label>
+    <div class="phone-field">
+        <select class="phone-code-select">
+            <option value="+221">🇸🇳 +221</option>
+            <option value="+225">🇨🇮 +225</option>
+            <option value="+33">🇫🇷 +33</option>
+        </select>
+        <input type="tel" class="phone-num-input" placeholder="77 000 00 00" required>
+    </div>
+</div>
+            <div class="form-group"><label>Message *</label><textarea name="message" placeholder="Décrivez votre projet..." required style="min-height:65px"></textarea></div>
+            <input type="hidden" name="service" value="Demande via Hero">
+            <button type="submit" class="form-submit" id="homeBtn">Envoyer <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M2 6.5h9M6.5 2l4.5 4.5L6.5 11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </form>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -597,7 +950,7 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="mailto:samadigitalagency@gmail.com">samadigitalagency@gmail.com</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#fe8d9f939f9a9799978a9f929f999b909d87be99939f9792d09d9193"><span class="__cf_email__" data-cfemail="6013010d010409070914010c0107050e031920070d01090c4e030f0d">samadigitalagency&#64;gmail.com</span></a></li>
           <li><a href="tel:+221761426172">+221 76 142 61 72</a></li>
           <li><a>Dakar, Sénégal</a></li>
           <li><a href="https://www.linkedin.com/company/sama-digital-agency/?viewAsMember=true" target="_blank">LinkedIn</a></li>
@@ -621,7 +974,7 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
   </div>
   <div class="services-list">
     <div class="service-row" onclick="openModal('m-audit')">
-      <img src="images/biljast-social-media-6363633_1280.jpg"alt="Audit" class="row-img">
+      <img src="images/biljast-social-media-6363633_1280.jpg" alt="Audit" class="row-img">
       <div class="row-content"><div class="row-num-label">Service 01</div><h3>Diagnostic & Audit Digital</h3><p>Analyse complète de votre présence en ligne pour identifier les faiblesses et opportunités.</p><div class="row-tags"><span class="row-tag">Audit réseaux sociaux</span><span class="row-tag">Analyse positionnement</span><span class="row-tag">Recommandations</span></div></div>
       <div class="row-action"><button class="row-btn">Demander un audit <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
     </div>
@@ -716,7 +1069,17 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
           <div class="form-group"><label>Nom complet *</label><input type="text" name="from_name" placeholder="Votre nom" required></div>
           <div class="form-group"><label>Email *</label><input type="email" name="from_email" placeholder="votre@email.com" required></div>
         </div>
-        <div class="form-group"><label>Téléphone / WhatsApp</label><input type="tel" name="phone" placeholder="+221 XX XXX XX XX"></div>
+<div class="form-group">
+    <label>Téléphone / WhatsApp</label>
+    <div class="phone-field">
+        <select class="phone-code-select">
+            <option value="+221">🇸🇳 +221</option>
+            <option value="+225">🇨🇮 +225</option>
+            <option value="+33">🇫🇷 +33</option>
+        </select>
+        <input type="tel" class="phone-num-input" placeholder="77 000 00 00" required>
+    </div>
+</div>
         <div class="form-group"><label>Service souhaité</label>
           <select name="service">
             <option value="">Sélectionner un service</option>
@@ -736,7 +1099,7 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
     <div class="contact-info-side">
       <div class="contact-info-title">Informations de contact</div>
       <div class="contact-info-items">
-        <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 3l13 5-13 6V10l8-1.5L1.5 7V3z" stroke="#c8f03e" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div><div class="contact-info-label">Email</div><div class="contact-info-value">samadigitalagency@gmail.com</div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 3l13 5-13 6V10l8-1.5L1.5 7V3z" stroke="#c8f03e" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div><div class="contact-info-label">Email</div><div class="contact-info-value">samadigitalagency&#64;gmail.com</div></div></div>
         <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="1.5" width="8" height="13" rx="2" stroke="#c8f03e" stroke-width="1.2"/><circle cx="8" cy="11.5" r=".7" fill="#c8f03e"/></svg></div><div><div class="contact-info-label">WhatsApp</div><div class="contact-info-value">+221 76 142 61 72</div></div></div>
         <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.5-2-4.5-4.5-4.5z" stroke="#c8f03e" stroke-width="1.2"/><circle cx="8" cy="6" r="1.7" stroke="#c8f03e" stroke-width="1.2"/></svg></div><div><div class="contact-info-label">Localisation</div><div class="contact-info-value">Dakar, Sénégal</div></div></div>
       </div>
@@ -752,27 +1115,23 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
   </div>
 </div>
 
-<!-- PRODUCT MODALS -->
-<div class="modal-overlay" id="prod-canva" onclick="closeModalOnOverlay(event,'prod-canva')">
-  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Templates Canva Premium</h2><p>Pack de 50+ templates professionnels pour toutes vos plateformes sociales.</p></div><button class="modal-close" onclick="closeModal('prod-canva')">✕</button></div>
-  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3">
-    <img src="images/canva.jpg" alt="Canva">
-  </div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>50+ templates Canva entièrement personnalisables</li><li>Formats Instagram, Facebook, LinkedIn, Stories</li><li>Police et palette de couleurs incluses</li><li>Guide d'utilisation PDF</li><li>Accès à vie aux mises à jour</li></ul><div class="faq-item"><div class="faq-q">Est-ce que je peux modifier les templates ?</div><div class="faq-a">Oui, tous les éléments sont modifiables dans Canva gratuit.</div></div><div class="faq-item"><div class="faq-q">Ai-je besoin d'un compte Canva Pro ?</div><div class="faq-a">Non, la version gratuite de Canva suffit.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">15 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-canva'); navigate('contact')">Acheter maintenant →</button></div></div></div>
-</div>
+<!-- ══════════ MODALS SERVICES ══════════ -->
+<div class="modal-overlay" id="m-audit" onclick="closeModalOnBg(event,'m-audit')"><div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M14 14l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h2>Diagnostic & Audit Digital</h2><p>Analyse complète de votre présence en ligne pour identifier les faiblesses et opportunités.</p></div><button class="modal-close" onclick="closeModal('m-audit')">✕</button></div><div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Audit complet de vos réseaux sociaux</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Analyse de votre positionnement face à la concurrence</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Identification des points forts et axes d'amélioration</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Recommandations concrètes et plan d'action prioritaire</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapport détaillé livré sous 5 jours ouvrés</span></div></div><button class="modal-cta" onclick="closeModal('m-audit');navigate('contact')">Demander un audit →</button></div></div></div>
 
-<div class="modal-overlay" id="prod-instagram" onclick="closeModalOnOverlay(event,'prod-instagram')">
-  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Pack Visuels Instagram</h2><p>100 visuels prêts à poster pour une présence Instagram cohérente et impactante.</p></div><button class="modal-close" onclick="closeModal('prod-instagram')">✕</button></div>
-  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3">
-    <img src="images/instagram.jpg" alt="Instagram">
-  </div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>100 visuels Instagram haute résolution</li><li>Posts, Stories, Reels covers inclus</li><li>Différents thèmes et ambiances</li><li>Fichiers PNG + Canva modifiables</li><li>🎁 Guide des meilleures heures de publication</li></ul><div class="faq-item"><div class="faq-q">Les visuels sont-ils personnalisables ?</div><div class="faq-a">Oui, les fichiers Canva vous permettent de modifier couleurs, textes et logo.</div></div><div class="faq-item"><div class="faq-q">Pour quelle niche sont conçus ces visuels ?</div><div class="faq-a">Polyvalents — business, lifestyle, services, formation.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">20 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-instagram'); navigate('contact')">Acheter maintenant →</button></div></div></div>
-</div>
+<div class="modal-overlay" id="m-strategie" onclick="closeModalOnBg(event,'m-strategie')"><div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16L6 8l4 6 3-5 3 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>Stratégie de Communication</h2><p>Une stratégie claire et structurée pour atteindre vos objectifs et vous différencier.</p></div><button class="modal-close" onclick="closeModal('m-strategie')">✕</button></div><div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Définition de votre ligne éditoriale et ton</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Positionnement clair et différenciant</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Plan de contenu mensuel personnalisé</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Calendrier éditorial sur 3 mois</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Choix des canaux et formats adaptés</span></div></div><button class="modal-cta" onclick="closeModal('m-strategie');navigate('contact')">Créer ma stratégie →</button></div></div></div>
 
-<div class="modal-overlay" id="prod-guide" onclick="closeModalOnOverlay(event,'prod-guide')">
-  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Guide Marketing Digital</h2><p>Le guide complet pour maîtriser le marketing digital et développer votre business.</p></div><button class="modal-close" onclick="closeModal('prod-guide')">✕</button></div>
-  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3">
-    <img src="images/guide.jpg" alt="Guide">
-  </div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>Guide PDF complet de 80 pages</li><li>Stratégie réseaux sociaux étape par étape</li><li>Templates de calendrier éditorial</li><li>Checklist de lancement de campagne</li><li>Outils gratuits recommandés</li></ul><div class="faq-item"><div class="faq-q">Faut-il des connaissances préalables ?</div><div class="faq-a">Non, accessible aux débutants comme aux profils expérimentés.</div></div><div class="faq-item"><div class="faq-q">Le guide est-il applicable au contexte africain ?</div><div class="faq-a">Absolument — conçu pour le marché sénégalais et ouest-africain.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">10 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-guide'); navigate('contact')">Acheter maintenant →</button></div></div></div>
-</div>
+<div class="modal-overlay" id="m-contenu" onclick="closeModalOnBg(event,'m-contenu')"><div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M6 7h8M6 11h6M6 15h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><h2>Création de Contenu</h2><p>Des contenus engageants et impactants pour capturer l'attention de votre audience.</p></div><button class="modal-close" onclick="closeModal('m-contenu')">✕</button></div><div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Posts et carrousels Instagram / Facebook</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Vidéos courtes et Reels engageants</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Copywriting persuasif adapté à votre marque</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Visuels professionnels aux couleurs de votre identité</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Pack mensuel de contenus prêts à publier</span></div></div><button class="modal-cta" onclick="closeModal('m-contenu');navigate('contact')">Créer mon contenu →</button></div></div></div>
+
+<div class="modal-overlay" id="m-reseaux" onclick="closeModalOnBg(event,'m-reseaux')"><div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="10" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="4" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="16" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M6 9l8-4M6 11l8 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><h2>Gestion des Réseaux Sociaux</h2><p>Gestion complète de vos comptes pour une présence régulière et professionnelle.</p></div><button class="modal-close" onclick="closeModal('m-reseaux')">✕</button></div><div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Publication régulière selon votre calendrier</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Interaction et réponse à votre communauté</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Animation de votre audience</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Veille concurrentielle et tendances</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapport mensuel de performance</span></div></div><button class="modal-cta" onclick="closeModal('m-reseaux');navigate('contact')">Gérer mes réseaux →</button></div></div></div>
+
+<div class="modal-overlay" id="m-analyse" onclick="closeModalOnBg(event,'m-analyse')"><div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16l4-5 4 4 4-8 4 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>Analyse & Optimisation</h2><p>Suivi rigoureux des performances pour maximiser votre retour sur investissement.</p></div><button class="modal-close" onclick="closeModal('m-analyse')">✕</button></div><div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Définition et suivi des KPIs clés</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapports de performance clairs et actionnables</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Optimisation continue des contenus et stratégies</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Analyse des données pour identifier les opportunités</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Recommandations basées sur les données réelles</span></div></div><button class="modal-cta" onclick="closeModal('m-analyse');navigate('contact')">Améliorer mes résultats →</button></div></div></div>
+
+<!-- ══════════ MODALS PRODUITS ══════════ -->
+<div class="modal-overlay" id="p-canva" onclick="closeModalOnBg(event,'p-canva')"><div class="modal" style="max-width:680px"><div class="modal-header"><div><h2>Templates Canva Premium</h2><p>Pack de 50+ templates professionnels pour toutes vos plateformes sociales.</p></div><button class="modal-close" onclick="closeModal('p-canva')">✕</button></div><div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/geralt-network-4025614_1280.jpg" alt="Canva"></div><div><div class="instant-badge">⚡ Téléchargement instantané</div><ul class="product-detail-list"><li>50+ templates Canva personnalisables</li><li>Formats Instagram, Facebook, LinkedIn, Stories</li><li>Police et palette de couleurs incluses</li><li>Guide d'utilisation PDF</li><li>Accès à vie aux mises à jour</li></ul><div class="faq-item"><div class="faq-q">Est-ce que je peux modifier les templates ?</div><div class="faq-a">Oui, tous les éléments sont modifiables dans Canva gratuit.</div></div><div class="faq-item"><div class="faq-q">Ai-je besoin d'un compte Canva Pro ?</div><div class="faq-a">Non, la version gratuite suffit.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-family:var(--fd);font-size:28px;color:var(--accent)">15 000 <span style="font-size:12px;font-family:var(--fb);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:12px 26px" onclick="closeModal('p-canva');navigate('contact')">Acheter maintenant →</button></div></div></div></div>
+
+<div class="modal-overlay" id="p-instagram" onclick="closeModalOnBg(event,'p-instagram')"><div class="modal" style="max-width:680px"><div class="modal-header"><div><h2>Pack Visuels Instagram</h2><p>100 visuels prêts à poster pour une présence Instagram cohérente et impactante.</p></div><button class="modal-close" onclick="closeModal('p-instagram')">✕</button></div><div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/geralt-social-media-4140959.jpg" alt="Instagram"></div><div><div class="instant-badge">⚡ Téléchargement instantané</div><ul class="product-detail-list"><li>100 visuels Instagram haute résolution</li><li>Posts, Stories, Reels covers</li><li>Fichiers PNG + Canva modifiables</li><li>🎁 Guide des meilleures heures de publication</li><li>Idées de légendes et hashtags</li></ul><div class="faq-item"><div class="faq-q">Les visuels sont-ils personnalisables ?</div><div class="faq-a">Oui, les fichiers Canva inclus permettent de modifier couleurs, textes et logo.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-family:var(--fd);font-size:28px;color:var(--accent)">20 000 <span style="font-size:12px;font-family:var(--fb);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:12px 26px" onclick="closeModal('p-instagram');navigate('contact')">Acheter maintenant →</button></div></div></div></div>
+
+<div class="modal-overlay" id="p-guide" onclick="closeModalOnBg(event,'p-guide')"><div class="modal" style="max-width:680px"><div class="modal-header"><div><h2>Guide Marketing Digital</h2><p>Le guide complet pour maîtriser le marketing digital et développer votre business.</p></div><button class="modal-close" onclick="closeModal('p-guide')">✕</button></div><div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/prodeepahmeed-digital-marketing-5816304_1280.jpg" alt="Guide"></div><div><div class="instant-badge">⚡ Téléchargement instantané</div><ul class="product-detail-list"><li>Guide PDF complet de 80 pages</li><li>Stratégie réseaux sociaux étape par étape</li><li>Templates de calendrier éditorial</li><li>Checklist de lancement de campagne</li><li>Outils gratuits recommandés</li></ul><div class="faq-item"><div class="faq-q">Faut-il des connaissances préalables ?</div><div class="faq-a">Non, accessible aux débutants comme aux profils expérimentés.</div></div><div class="faq-item"><div class="faq-q">Le guide est-il adapté au contexte africain ?</div><div class="faq-a">Absolument — conçu pour le marché sénégalais et ouest-africain.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)"><div style="font-family:var(--fd);font-size:28px;color:var(--accent)">10 000 <span style="font-size:12px;font-family:var(--fb);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:12px 26px" onclick="closeModal('p-guide');navigate('contact')">Acheter maintenant →</button></div></div></div></div>
 
 <!-- TOASTS -->
 <div class="toast" id="toast">✓ Message envoyé ! Réponse sous 24h.</div>
@@ -780,155 +1139,232 @@ footer{background:var(--gray-dark);border-top:1px solid var(--border);padding:48
 
 <script>
 /* ══════════════════════════════════════
-   1. CONFIGURATION & ÉTAT GLOBAL
+   NAVIGATION — robuste
 ══════════════════════════════════════ */
-const EJS_SERVICE  = 'service_w8zmcyh';
-const EJS_TEMPLATE = 'template_3zvtjxx';
-const EJS_KEY      = 'RJnIq2ZXJ18yE792Y';
-
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof emailjs !== 'undefined') {
-    emailjs.init({ publicKey: EJS_KEY });
-  }
-  
-  // Placement initial du footer
-  updateFooter('home');
-
-  // Gestion globale de la touche Échap
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllOverlays();
+function navigate(page) {
+  // Cacher toutes les pages
+  document.querySelectorAll('.page').forEach(function(p){
+    p.classList.remove('active');
   });
-});
 
-/* ══════════════════════════════════════
-   2. NAVIGATION
-══════════════════════════════════════ */
-function navigate(pageId) {
-  const pages = document.querySelectorAll('.page');
-  const target = document.getElementById('page-' + pageId);
+  // Afficher la bonne page
+  var target = document.getElementById('page-' + page);
   if (!target) return;
-
-  pages.forEach(p => p.classList.remove('active'));
   target.classList.add('active');
 
-  updateFooter(pageId);
-  closeMobileNav();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function updateFooter(pageId) {
-  const footer = document.getElementById('siteFooter');
-  const targetPage = document.getElementById('page-' + pageId);
-  if (footer && targetPage) {
-    targetPage.appendChild(footer);
-  }
-}
-
-/* ══════════════════════════════════════
-   3. MODALS (CORRECTIF IDs)
-══════════════════════════════════════ */
-function openModal(id) {
-  // Gestion de la petite différence d'ID (p- vs prod-)
-  let targetId = id;
-  if (id === 'p-canva') targetId = 'prod-canva';
-  if (id === 'p-instagram') targetId = 'prod-instagram';
-  if (id === 'p-guide') targetId = 'prod-guide';
-
-  const modal = document.getElementById(targetId);
-  if (modal) {
-    modal.classList.add('open');
-    modal.style.display = 'flex'; // Sécurité pour forcer l'affichage
-    document.body.style.overflow = 'hidden';
-  } else {
-    console.error("Modal non trouvée : " + targetId);
-  }
-}
-
-function closeModal(id) {
-  const modal = document.getElementById(id);
-  if (modal) {
-    modal.classList.remove('open');
-    modal.style.display = 'none';
-    checkScrollLock();
-  }
-}
-
-// Fonction pour le clic sur l'arrière-plan (Overlay)
-function closeModalOnOverlay(e, id) {
-  if (e.target.classList.contains('modal-overlay')) {
-    closeModal(id);
-  }
-}
-
-function closeAllOverlays() {
-  document.querySelectorAll('.modal-overlay').forEach(m => {
-    m.classList.remove('open');
-    m.style.display = 'none';
+  // Mettre à jour nav desktop
+  document.querySelectorAll('nav a').forEach(function(a){
+    a.classList.remove('active');
   });
-  closeMobileNav();
-  checkScrollLock();
-}
+  var navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
 
-function checkScrollLock() {
-  const anyOpen = document.querySelector('.modal-overlay.open, #mobileNav.open');
-  if (!anyOpen) document.body.style.overflow = '';
+  // Mettre à jour nav mobile
+  document.querySelectorAll('.mobile-nav a').forEach(function(a){
+    a.classList.remove('active');
+  });
+  var mNavEl = document.getElementById('mnav-' + page);
+  if (mNavEl) mNavEl.classList.add('active');
+
+  // Déplacer le footer dans la page active
+  var footer = document.getElementById('siteFooter');
+  if (footer) target.appendChild(footer);
+
+  // Scroll en haut
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Mémoriser la page courante
+  window._currentPage = page;
 }
 
 /* ══════════════════════════════════════
-   4. MOBILE NAV
+   MOBILE NAV
 ══════════════════════════════════════ */
 function openMobileNav() {
-  const nav = document.getElementById('mobileNav');
-  if(nav) nav.classList.add('open');
+  var nav = document.getElementById('mobileNav');
+  if (!nav) return;
+  nav.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeMobileNav() {
-  const nav = document.getElementById('mobileNav');
-  if(nav) nav.classList.remove('open');
-  checkScrollLock();
+  var nav = document.getElementById('mobileNav');
+  if (!nav) return;
+  nav.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 /* ══════════════════════════════════════
-   5. EMAILJS & UI
+   MODALS
 ══════════════════════════════════════ */
+function openModal(id) {
+  var modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(id) {
+  var modal = document.getElementById(id);
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnBg(e, id) {
+  var modal = document.getElementById(id);
+  if (!modal) return;
+  if (e.target === modal) closeModal(id);
+}
+
+/* Escape pour fermer modals + menu mobile */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(function(m){
+      m.classList.remove('open');
+    });
+    closeMobileNav();
+    document.body.style.overflow = '';
+  }
+});
+
+/* ══════════════════════════════════════
+   EMAIL — EmailJS
+══════════════════════════════════════ */
+var EJS_SERVICE  = 'service_w8zmcyh';
+var EJS_TEMPLATE = 'template_3zvtjxx';
+var EJS_KEY      = 'RJnIq2ZXJ18yE792Y';
+var _ejsReady    = false;
+
+/* Init EmailJS immédiatement (plus fiable que load) */
+(function initEmailJS(){
+  if (typeof emailjs !== 'undefined') {
+    try {
+      emailjs.init(EJS_KEY);
+      _ejsReady = true;
+    } catch(err) {
+      console.error("EmailJS init error:", err);
+      _ejsReady = false;
+    }
+  }
+})();
+
+/* Récupère le numéro complet */
+function getFullPhone(formEl) {
+  var codeEl = formEl.querySelector('.phone-code-select');
+  var numEl  = formEl.querySelector('.phone-num-input');
+
+  if (!codeEl || !numEl) return "Non renseigné";
+
+  var code = codeEl.value.trim();
+  var num  = numEl.value.trim();
+
+  if (!num) return "Non renseigné";
+
+  return code + " " + num;
+}
+
+/* Envoi email */
 function sendEmail(e, type) {
   e.preventDefault();
-  const form = e.target;
-  const btn = form.querySelector('button[type="submit"]');
-  const originalHTML = btn.innerHTML;
 
+  var form  = e.target;
+  var btnId = type === 'contact' ? 'contactBtn' : 'homeBtn';
+  var btn   = document.getElementById(btnId);
+
+  if (!btn) return;
+
+  var origHTML = btn.innerHTML;
   btn.disabled = true;
-  btn.textContent = "Envoi...";
+  btn.innerHTML = '<span style="opacity:.7">Envoi en cours…</span>';
 
-  emailjs.sendForm(EJS_SERVICE, EJS_TEMPLATE, form)
-    .then(() => {
-      showToast('toast');
-      form.reset();
-    })
-    .catch((err) => {
-      console.error(err);
-      openMailto(form);
-      showToast('toastMail');
-    })
-    .finally(() => {
-      btn.disabled = false;
-      btn.innerHTML = originalHTML;
-    });
+  var nameEl    = form.querySelector('[name="from_name"]');
+  var emailEl   = form.querySelector('[name="from_email"]');
+  var serviceEl = form.querySelector('[name="service"]');
+  var messageEl = form.querySelector('[name="message"]');
+
+  var data = {
+    from_name:  nameEl ? nameEl.value.trim() : "Non renseigné",
+    from_email: emailEl ? emailEl.value.trim() : "Non renseigné",
+    phone:      getFullPhone(form),
+    service:    serviceEl ? serviceEl.value : "Non précisé",
+    message:    messageEl ? messageEl.value.trim() : "Aucun message",
+    reply_to:   emailEl ? emailEl.value.trim() : ""
+  };
+
+  function finish(toastId) {
+    form.reset();
+    btn.disabled = false;
+    btn.innerHTML = origHTML;
+    showToast(toastId);
+  }
+
+  /* Envoi EmailJS */
+  if (_ejsReady && typeof emailjs !== 'undefined') {
+    emailjs.send(EJS_SERVICE, EJS_TEMPLATE, data)
+      .then(function() {
+        finish('toast');
+      })
+      .catch(function(err) {
+        console.error("EmailJS send error:", err);
+        openMailto(data);
+        finish('toastMail');
+      });
+  } else {
+    /* Fallback mailto */
+    openMailto(data);
+    finish('toastMail');
+  }
 }
 
-function openMailto(form) {
-  const name = form.from_name?.value || '';
-  const msg = form.message?.value || '';
-  window.location.href = `mailto:samadigitalagency@gmail.com?subject=Contact&body=Nom: ${name}%0A%0AMessage: ${msg}`;
+/* Fallback mailto */
+function openMailto(d) {
+  var subject = encodeURIComponent('Nouveau message – Sama Digital Agency');
+  var body = encodeURIComponent(
+    'Nouveau message reçu sur le site web\n' +
+    '─────────────────────────────\n' +
+    'Nom     : ' + d.from_name  + '\n' +
+    'Email   : ' + d.from_email + '\n' +
+    'Tél     : ' + d.phone      + '\n' +
+    'Service : ' + d.service    + '\n' +
+    '─────────────────────────────\n' +
+    'Message :\n' + d.message
+  );
+
+  window.open(
+    'mailto:samadigitalagency@gmail.com?subject=' + subject + '&body=' + body,
+    '_blank'
+  );
 }
 
+/* Toast */
 function showToast(id) {
-  const t = document.getElementById(id);
+  var t = document.getElementById(id);
   if (!t) return;
+
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 5000);
+  setTimeout(function(){
+    t.classList.remove('show');
+  }, 5000);
 }
+
+/* ══════════════════════════════════════
+   HEADER SCROLL — corrigé
+══════════════════════════════════════ */
+window.addEventListener('scroll', function() {
+  var h = document.getElementById('siteHeader');
+  if (!h) return;
+
+  h.style.background = window.scrollY > 40
+    ? 'rgba(5,10,5,0.95)'
+    : 'rgba(5,10,5,0.88)';
+});
+
+/* ══════════════════════════════════════
+   DEFAULT PAGE INIT
+══════════════════════════════════════ */
+window.addEventListener("DOMContentLoaded", function() {
+  // Active la page home par défaut
+  navigate("home");
+});
 </script>
-</body>
-</html>
