@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sama Digital Agency – Stratégie & Marketing Digital | Dakar</title>
+<meta name="description" content="Sama Digital Agency accompagne entrepreneurs et entreprises à développer leur image de marque, créer du contenu impactant et attirer plus de clients.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+:root {
+  --black: #0a0a0a;
+  --white: #f5f4f0;
+  --accent: #c8f03e;
+  --gray-dark: #1a1a1a;
+  --gray-mid: #2a2a2a;
+  --gray-light: #888;
+  --border: rgba(255,255,255,0.08);
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--white); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1; opacity: 0.35;
+}
+
+/* === HEADER === */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 0 5vw; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,10,0.92); backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border); transition: background 0.3s;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-mark { width: 36px; height: 36px; flex-shrink: 0; }
+.logo-mark svg { width: 100%; height: 100%; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-text .brand { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: 0.08em; color: var(--white); }
+.logo-text .sub { font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-light); margin-top: 3px; }
+nav { display: flex; gap: 32px; align-items: center; }
+nav a { color: rgba(245,244,240,0.6); text-decoration: none; font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; position: relative; }
+nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+nav a:hover, nav a.active { color: var(--white); }
+nav a:hover::after, nav a.active::after { transform: scaleX(1); }
+.nav-cta { background: var(--accent) !important; color: var(--black) !important; padding: 9px 20px; font-weight: 500; }
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--white) !important; }
+.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+.burger span { display: block; width: 22px; height: 1px; background: var(--white); transition: 0.3s; }
+
+/* === MOBILE NAV === */
+.mobile-nav {
+  display: none; position: fixed; inset: 0; background: var(--black);
+  z-index: 9999; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-family: var(--font-display); font-size: 32px; font-weight: 300; color: var(--white); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; padding: 4px 0; }
+.mobile-nav a:hover { color: var(--accent); }
+.mobile-nav-close { position: absolute; top: 18px; right: 5vw; background: none; border: 1px solid var(--border); color: var(--white); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 17px; }
+.mobile-nav-close:hover { border-color: var(--accent); color: var(--accent); }
+
+/* === PAGES === */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* === BUTTONS === */
+.btn-primary { display: inline-flex; align-items: center; gap: 11px; background: var(--accent); color: var(--black); text-decoration: none; padding: 14px 32px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; border: none; cursor: pointer; transition: all 0.25s; font-family: var(--font-body); }
+.btn-primary:hover { background: var(--white); transform: translateX(3px); }
+
+/* === FORMS === */
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 7px; }
+.form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--white); padding: 11px 14px; font-family: var(--font-body); font-size: 14px; outline: none; transition: border-color 0.2s; appearance: none; border-radius: 0; }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 88px; }
+.form-group select option { background: var(--gray-dark); }
+.form-submit { width: 100%; background: var(--accent); color: var(--black); border: none; padding: 15px; font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 6px; }
+.form-submit:hover { background: var(--white); }
+.form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* === HERO HOME === */
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 390px; padding: 0 5vw; position: relative; overflow: hidden; align-items: center; }
+.hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 70% at 25% 55%, rgba(200,240,62,0.07) 0%, transparent 65%), radial-gradient(ellipse 40% 50% at 80% 20%, rgba(200,240,62,0.04) 0%, transparent 60%); }
+.hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px); background-size: 80px 80px; }
+.hero-left { padding: 120px 0 80px; position: relative; z-index: 2; }
+.hero-label { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+.hero-label::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
+.hero-title { font-family: var(--font-display); font-size: clamp(46px, 5vw, 80px); font-weight: 300; line-height: 1.06; margin-bottom: 22px; max-width: 660px; }
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-sub { font-size: 15px; line-height: 1.75; color: rgba(245,244,240,0.55); max-width: 490px; margin-bottom: 42px; }
+.hero-right { position: relative; z-index: 2; align-self: stretch; display: flex; align-items: center; padding: 120px 0 80px 52px; }
+.form-card { background: rgba(22,22,22,0.96); border: 1px solid var(--border); padding: 34px; width: 100%; position: relative; backdrop-filter: blur(20px); }
+.form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.form-tag { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.form-card h3 { font-family: var(--font-display); font-size: 24px; font-weight: 400; margin-bottom: 6px; }
+.form-card p { font-size: 12px; color: var(--gray-light); margin-bottom: 22px; line-height: 1.6; }
+
+/* === STATS === */
+.stats-bar { padding: 0 5vw; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); display: grid; grid-template-columns: repeat(3, 1fr); }
+.stat-item { padding: 34px 36px; border-right: 1px solid var(--border); display: flex; align-items: center; gap: 16px; }
+.stat-item:last-child { border-right: none; }
+.stat-icon { font-size: 26px; flex-shrink: 0; }
+.stat-num { font-family: var(--font-display); font-size: 38px; font-weight: 300; line-height: 1; color: var(--accent); }
+.stat-label { font-size: 11px; color: var(--gray-light); line-height: 1.5; margin-top: 3px; }
+
+/* === SECTION === */
+.section { padding: 96px 5vw; }
+.section-header { margin-bottom: 60px; }
+.section-tag { display: inline-flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.section-tag::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+.section-title { font-family: var(--font-display); font-size: clamp(30px, 3vw, 50px); font-weight: 300; line-height: 1.1; max-width: 540px; }
+.section-title em { font-style: italic; color: rgba(245,244,240,0.35); }
+
+/* === HOME SERVICES GRID === */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-bottom: 48px; }
+.service-card-home { background: var(--black); padding: 0 0 28px; cursor: pointer; transition: background 0.3s; position: relative; overflow: hidden; }
+.service-card-home::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: var(--accent); transition: width 0.4s; }
+.service-card-home:hover { background: var(--gray-dark); }
+.service-card-home:hover::after { width: 100%; }
+.svc-img { width: 100%; height: 155px; object-fit: cover; display: block; filter: grayscale(30%) brightness(0.65); transition: filter 0.4s; }
+.service-card-home:hover .svc-img { filter: grayscale(0%) brightness(0.8); }
+.svc-content { padding: 20px 28px 0; }
+.svc-num { font-size: 10px; color: var(--gray-light); letter-spacing: 0.15em; margin-bottom: 8px; }
+.svc-title { font-family: var(--font-display); font-size: 19px; font-weight: 400; margin-bottom: 8px; }
+.svc-desc { font-size: 12px; color: var(--gray-light); line-height: 1.65; }
+.svc-arrow { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-top: 14px; transition: gap 0.2s; }
+.service-card-home:hover .svc-arrow { gap: 13px; }
+
+/* === PAGE HERO === */
+.page-hero { padding: 148px 5vw 68px; position: relative; overflow: hidden; }
+.page-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 70% 50%, rgba(200,240,62,0.05) 0%, transparent 65%); }
+.page-hero-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+.page-hero-label::before { content: ''; width: 22px; height: 1px; background: var(--accent); }
+.page-hero-title { font-family: var(--font-display); font-size: clamp(42px, 5vw, 74px); font-weight: 300; line-height: 1.06; max-width: 700px; }
+.page-hero-title em { font-style: italic; color: var(--accent); }
+.page-hero-sub { font-size: 14px; color: var(--gray-light); max-width: 450px; line-height: 1.75; margin-top: 20px; }
+
+/* === SERVICES PAGE === */
+.services-list { padding: 0 5vw 96px; display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+.service-row { background: var(--black); display: grid; grid-template-columns: 240px 1fr 190px; gap: 0; cursor: pointer; transition: background 0.3s; position: relative; }
+.service-row::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--accent); transition: width 0.3s; }
+.service-row:hover { background: var(--gray-dark); }
+.service-row:hover::after { width: 3px; }
+.row-img { width: 240px; height: 190px; object-fit: cover; display: block; filter: grayscale(40%) brightness(0.6); transition: filter 0.4s; flex-shrink: 0; }
+.service-row:hover .row-img { filter: grayscale(10%) brightness(0.78); }
+.row-content { padding: 36px 40px; }
+.row-num-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 9px; }
+.row-content h3 { font-family: var(--font-display); font-size: 26px; font-weight: 400; margin-bottom: 9px; }
+.row-content p { font-size: 13px; color: var(--gray-light); line-height: 1.7; max-width: 440px; margin-bottom: 16px; }
+.row-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.row-tag { font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(200,240,62,0.25); padding: 3px 10px; }
+.row-action { padding: 36px 36px; display: flex; align-items: center; justify-content: flex-end; }
+.row-btn { display: inline-flex; align-items: center; gap: 8px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); border: 1px solid var(--border); padding: 11px 16px; transition: all 0.2s; background: none; cursor: pointer; font-family: var(--font-body); white-space: nowrap; }
+.row-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* === MODAL === */
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 9000; backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--gray-dark); border: 1px solid var(--border); max-width: 640px; width: 100%; max-height: 92vh; overflow-y: auto; position: relative; }
+.modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.modal-header { padding: 32px 32px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.modal-icon { width: 48px; height: 48px; border: 1px solid rgba(200,240,62,0.3); display: flex; align-items: center; justify-content: center; color: var(--accent); margin-bottom: 16px; }
+.modal-header h2 { font-family: var(--font-display); font-size: 26px; font-weight: 400; }
+.modal-header p { font-size: 13px; color: var(--gray-light); line-height: 1.65; margin-top: 6px; }
+.modal-close { background: none; border: 1px solid var(--border); color: var(--white); width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all 0.2s; }
+.modal-close:hover { border-color: var(--accent); color: var(--accent); }
+.modal-body { padding: 26px 32px 32px; }
+.modal-features { display: flex; flex-direction: column; gap: 9px; margin-bottom: 26px; }
+.modal-feature { display: flex; align-items: center; gap: 13px; padding: 12px 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); }
+.modal-feature-icon { color: var(--accent); flex-shrink: 0; font-style: normal; }
+.modal-feature span { font-size: 13px; color: rgba(245,244,240,0.75); }
+.modal-cta { width: 100%; background: var(--accent); color: var(--black); border: none; padding: 16px; font-family: var(--font-body); font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.modal-cta:hover { background: var(--white); }
+
+/* === BOUTIQUE === */
+.boutique-grid { padding: 0 5vw 96px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+.product-card { background: var(--black); cursor: pointer; transition: background 0.3s; position: relative; overflow: hidden; }
+.product-card:hover { background: var(--gray-dark); }
+.product-img { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+.product-img img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(20%) brightness(0.68); transition: filter 0.4s, transform 0.5s; }
+.product-card:hover .product-img img { filter: grayscale(0%) brightness(0.82); transform: scale(1.04); }
+.product-badge { position: absolute; top: 12px; right: 12px; background: var(--accent); color: var(--black); font-size: 9px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 9px; z-index: 2; }
+.product-info { padding: 22px 22px 26px; }
+.product-cat { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.product-name { font-family: var(--font-display); font-size: 19px; font-weight: 400; margin-bottom: 7px; line-height: 1.2; }
+.product-desc { font-size: 12px; color: var(--gray-light); line-height: 1.65; margin-bottom: 16px; }
+.product-footer { display: flex; align-items: center; justify-content: space-between; }
+.product-price { font-family: var(--font-display); font-size: 24px; font-weight: 300; color: var(--accent); }
+.product-price span { font-size: 11px; color: var(--gray-light); font-family: var(--font-body); font-weight: 300; }
+.product-buy { background: var(--accent); color: var(--black); border: none; padding: 8px 16px; font-family: var(--font-body); font-size: 10.5px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+.product-buy:hover { background: var(--white); }
+.product-modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.product-detail-img { overflow: hidden; }
+.product-detail-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.75); }
+.product-detail-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.product-detail-list li { display: flex; align-items: flex-start; gap: 11px; font-size: 12.5px; color: rgba(245,244,240,0.75); }
+.product-detail-list li::before { content: '✓'; color: var(--accent); font-size: 11px; flex-shrink: 0; margin-top: 1px; font-weight: 500; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 12px 0; }
+.faq-q { font-size: 13px; font-weight: 400; margin-bottom: 5px; color: var(--white); }
+.faq-a { font-size: 12px; color: var(--gray-light); line-height: 1.6; }
+.instant-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+
+/* === A PROPOS === */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 0 5vw 68px; }
+.about-block { background: var(--black); padding: 52px 48px; }
+.about-block-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.about-block-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.about-block h2 { font-family: var(--font-display); font-size: 24px; font-weight: 400; margin-bottom: 12px; line-height: 1.2; }
+.about-block p { font-size: 13px; color: var(--gray-light); line-height: 1.85; }
+.approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin: 0 5vw 68px; }
+.approach-item { background: var(--black); padding: 40px 32px; position: relative; overflow: hidden; }
+.approach-num { font-family: var(--font-display); font-size: 60px; font-weight: 300; color: rgba(200,240,62,0.07); position: absolute; top: 10px; right: 14px; line-height: 1; }
+.approach-icon { color: var(--accent); margin-bottom: 16px; }
+.approach-item h3 { font-family: var(--font-display); font-size: 20px; font-weight: 400; margin-bottom: 10px; }
+.approach-item p { font-size: 12px; color: var(--gray-light); line-height: 1.75; }
+.about-cta { text-align: center; padding: 68px 5vw 96px; border-top: 1px solid var(--border); }
+.about-cta-title { font-family: var(--font-display); font-size: clamp(30px, 3vw, 46px); font-weight: 300; margin-bottom: 30px; }
+
+/* === CONTACT === */
+.contact-layout { display: grid; grid-template-columns: 1fr 360px; gap: 0; padding: 0 5vw 96px; }
+.contact-form-side { padding-right: 68px; }
+.contact-form-side h2 { font-family: var(--font-display); font-size: 30px; font-weight: 400; margin-bottom: 7px; }
+.contact-form-side > p { font-size: 13px; color: var(--gray-light); margin-bottom: 32px; line-height: 1.65; }
+.contact-info-side { border-left: 1px solid var(--border); padding-left: 56px; }
+.contact-info-title { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+.contact-info-items { display: flex; flex-direction: column; margin-bottom: 44px; }
+.contact-info-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+.contact-info-icon { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; }
+.contact-info-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 3px; }
+.contact-info-value { font-size: 12.5px; color: var(--white); }
+.social-links { display: flex; flex-direction: column; }
+.social-link { display: flex; align-items: center; gap: 13px; color: var(--gray-light); text-decoration: none; font-size: 12px; transition: color 0.2s; padding: 13px 0; border-bottom: 1px solid var(--border); }
+.social-link:hover { color: var(--accent); }
+.social-link-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+.contact-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+
+/* === FOOTER === */
+footer { background: var(--gray-dark); border-top: 1px solid var(--border); padding: 52px 5vw 26px; }
+.footer-top { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 52px; padding-bottom: 40px; border-bottom: 1px solid var(--border); margin-bottom: 26px; }
+.footer-brand p { font-size: 12px; color: var(--gray-light); line-height: 1.75; margin-top: 13px; max-width: 250px; }
+.footer-col h4 { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a { color: var(--gray-light); text-decoration: none; font-size: 12px; transition: color 0.2s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 10.5px; color: rgba(136,136,136,0.45); }
+
+/* === TOAST === */
+.toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--accent); color: var(--black); padding: 12px 24px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; z-index: 99999; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* === ANIMATIONS === */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.7s ease both; }
+.fade-up-d1 { animation-delay: 0.1s; }
+.fade-up-d2 { animation-delay: 0.2s; }
+.fade-up-d3 { animation-delay: 0.3s; }
+
+/* === RESPONSIVE === */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .service-row { grid-template-columns: 200px 1fr; }
+  .row-action { display: none; }
+  .contact-layout { grid-template-columns: 1fr; }
+  .contact-form-side { padding-right: 0; margin-bottom: 52px; }
+  .contact-info-side { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 44px; }
+  .product-modal-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .boutique-grid { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .stat-item:last-child { border-bottom: none; }
+}
+@media (max-width: 768px) {
+  nav { display: none; }
+  .burger { display: flex; }
+  header { height: 62px; padding: 0 4vw; }
+
+  /* Mobile nav — taille contrôlée */
+  .mobile-nav a { font-size: 26px; }
+  .mobile-nav { gap: 18px; }
+
+  .hero { padding: 0 4vw; }
+  .hero-left { padding: 96px 0 56px; }
+  .hero-title { font-size: 36px; }
+  .hero-sub { font-size: 14px; }
+
+  .services-list { padding: 0 4vw 72px; }
+  .service-row { grid-template-columns: 1fr; }
+  .row-img { width: 100%; height: 170px; }
+  .row-content { padding: 24px 24px 18px; }
+  .row-action { display: flex; padding: 0 24px 24px; justify-content: flex-start; }
+
+  .services-grid { grid-template-columns: 1fr; }
+  .boutique-grid { grid-template-columns: 1fr; }
+  .section { padding: 64px 4vw; }
+  .page-hero { padding: 104px 4vw 52px; }
+  .page-hero-title { font-size: 33px; }
+  .about-grid { margin: 0 4vw 52px; }
+  .about-block { padding: 36px 28px; }
+  .approach-grid { margin: 0 4vw 52px; }
+  .approach-item { padding: 32px 24px; }
+  .about-cta { padding: 52px 4vw 72px; }
+  .contact-layout { padding: 0 4vw 72px; }
+  .contact-grid2 { grid-template-columns: 1fr; }
+  .boutique-grid { padding: 0 4vw 72px; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  footer { padding: 40px 4vw 22px; }
+  .footer-bottom { flex-direction: column; gap: 7px; text-align: center; }
+  .stats-bar { padding: 0 4vw; }
+  .stat-item { padding: 26px 18px; }
+  .stat-num { font-size: 32px; }
+  .modal-header { padding: 22px; }
+  .modal-body { padding: 18px 22px 26px; }
+}
+@media (max-width: 480px) {
+  .hero-title { font-size: 30px; }
+  .page-hero-title { font-size: 28px; }
+  .mobile-nav a { font-size: 22px; }
+  .mobile-nav { gap: 14px; }
+  .stat-num { font-size: 28px; }
+  .btn-primary { padding: 12px 22px; font-size: 11px; }
+  .form-submit { padding: 13px; font-size: 11px; }
+  .svc-img { height: 130px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="toggleMobileNav()">✕</button>
+  <a href="#" onclick="navigate('home'); toggleMobileNav()">Accueil</a>
+  <a href="#" onclick="navigate('services'); toggleMobileNav()">Services</a>
+  <a href="#" onclick="navigate('boutique'); toggleMobileNav()">Boutique</a>
+  <a href="#" onclick="navigate('apropos'); toggleMobileNav()">À propos</a>
+  <a href="#" onclick="navigate('contact'); toggleMobileNav()">Contact</a>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <a href="#" class="logo" onclick="navigate('home'); return false;">
+    <div class="logo-mark">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 26C10 23 10 17 14 14" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M26 14C30 17 30 23 26 26" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M16 20C17 16 21 14 24 16" stroke="#f5f4f0" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M24 20C23 24 19 26 16 24" stroke="#f5f4f0" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M24 14L31 7" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M27.5 7H31V10.5" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="logo-text">
+      <span class="brand">SAMA</span>
+      <span class="sub">Digital Agency</span>
+    </div>
+  </a>
+  <nav>
+    <a href="#" onclick="navigate('home'); return false;" id="nav-home" class="active">Accueil</a>
+    <a href="#" onclick="navigate('services'); return false;" id="nav-services">Services</a>
+    <a href="#" onclick="navigate('boutique'); return false;" id="nav-boutique">Boutique</a>
+    <a href="#" onclick="navigate('apropos'); return false;" id="nav-apropos">À propos</a>
+    <a href="#" onclick="navigate('contact'); return false;" id="nav-contact" class="nav-cta">Contact</a>
+  </nav>
+  <button class="burger" onclick="toggleMobileNav()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ===== HOME ===== -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-left">
+      <div class="hero-label fade-up">Agence Marketing Digital · Dakar, Sénégal</div>
+      <h1 class="hero-title fade-up fade-up-d1">Booste ta visibilité en ligne avec une <em>vraie stratégie</em> digitale</h1>
+      <p class="hero-sub fade-up fade-up-d2">Sama Digital Agency accompagne entrepreneurs et entreprises à développer leur image de marque, créer du contenu impactant et attirer plus de clients.</p>
+      <button class="btn-primary fade-up fade-up-d3" onclick="navigate('services')">
+        Découvrir nos services
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="hero-right fade-up fade-up-d2">
+      <div class="form-card">
+        <div class="form-tag">Démarrer maintenant</div>
+        <h3>Contactez-nous</h3>
+        <p>Recevez une réponse rapide et personnalisée pour votre projet.</p>
+        <form id="homeForm" onsubmit="sendEmail(event,'home')">
+          <div class="form-group"><label>Nom complet *</label><input type="text" name="from_name" placeholder="Votre nom" required></div>
+          <div class="form-group"><label>Email *</label><input type="email" name="from_email" placeholder="votre@email.com" required></div>
+          <div class="form-group"><label>Message</label><textarea name="message" placeholder="Décrivez votre projet..."></textarea></div>
+          <button type="submit" class="form-submit" id="homeBtn">Envoyer <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-icon">⭐</div><div><div class="stat-num">+50</div><div class="stat-label">Clients accompagnés</div></div></div>
+    <div class="stat-item"><div class="stat-icon">📈</div><div><div class="stat-num">+200%</div><div class="stat-label">De visibilité en moyenne</div></div></div>
+    <div class="stat-item"><div class="stat-icon">🎯</div><div><div class="stat-num">100%</div><div class="stat-label">Stratégie orientée résultats</div></div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="section-tag">Nos expertises</div>
+      <h2 class="section-title">Ce que nous faisons pour vous <em>grandir</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card-home" onclick="navigate('services')">
+        <img src="images/biljast-social-media-6363633_1280.jpg" alt="Audit Digital" class="svc-img">
+        <div class="svc-content"><div class="svc-num">01</div><div class="svc-title">Audit Digital</div><div class="svc-desc">Analyse complète de votre présence en ligne pour identifier les opportunités de croissance.</div><div class="svc-arrow">Découvrir <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div></div>
+      </div>
+      <div class="service-card-home" onclick="navigate('services')">
+        <img src="images/sergeitokmakov-stock-trading-6525081.jpg" alt="Stratégie" class="svc-img">
+        <div class="svc-content"><div class="svc-num">02</div><div class="svc-title">Stratégie</div><div class="svc-desc">Une stratégie claire et structurée pour atteindre vos objectifs de communication.</div><div class="svc-arrow">Découvrir <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div></div>
+      </div>
+      <div class="service-card-home" onclick="navigate('services')">
+        <img src="images/kaufdex-facebook-3961465_1280.jpg" alt="Création contenu" class="svc-img">
+        <div class="svc-content"><div class="svc-num">03</div><div class="svc-title">Création de contenu</div><div class="svc-desc">Des contenus engageants adaptés à votre audience et vos objectifs.</div><div class="svc-arrow">Découvrir <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div></div>
+      </div>
+      <div class="service-card-home" onclick="navigate('services')">
+        <img src="images/geralt-people-3175027_1280.jpg" alt="Gestion réseaux" class="svc-img">
+        <div class="svc-content"><div class="svc-num">04</div><div class="svc-title">Gestion réseaux</div><div class="svc-desc">Gestion complète de vos comptes pour une présence régulière et professionnelle.</div><div class="svc-arrow">Découvrir <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div></div>
+      </div>
+      <div class="service-card-home" onclick="navigate('services')">
+        <img src="images/diggitymarketing-search-engine-optimization-4111000_1280.jpg" alt="Analyse" class="svc-img">
+        <div class="svc-content"><div class="svc-num">05</div><div class="svc-title">Analyse & optimisation</div><div class="svc-desc">Suivi des performances et amélioration continue pour booster vos résultats.</div><div class="svc-arrow">Découvrir <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M5.5 2l3.5 3.5L5.5 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div></div>
+      </div>
+      <div class="service-card-home" style="display:flex;flex-direction:column;justify-content:center;align-items:center;padding:44px;background:var(--gray-dark);" onclick="navigate('services')">
+        <div style="font-family:var(--font-display);font-size:17px;font-weight:400;margin-bottom:18px;text-align:center;">Voir tous nos services</div>
+        <div style="width:44px;height:44px;border:1px solid var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent);">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button class="btn-primary" onclick="navigate('services')">Voir tous les services <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </section>
+
+  <footer id="siteFooter">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:26px;height:26px">
+            <path d="M14 26C10 23 10 17 14 14" stroke="#f5f4f0" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M26 14C30 17 30 23 26 26" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M16 20C17 16 21 14 24 16" stroke="#f5f4f0" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M24 20C23 24 19 26 16 24" stroke="#f5f4f0" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M24 14L31 7" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M27.5 7H31V10.5" stroke="#c8f03e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span style="font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:0.08em">SAMA</span>
+        </div>
+        <p>Votre partenaire en stratégie digitale à Dakar. Nous transformons votre présence en ligne en levier de croissance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#" onclick="navigate('home')">Accueil</a></li>
+          <li><a href="#" onclick="navigate('services')">Services</a></li>
+          <li><a href="#" onclick="navigate('boutique')">Boutique</a></li>
+          <li><a href="#" onclick="navigate('apropos')">À propos</a></li>
+          <li><a href="#" onclick="navigate('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:samadigitalagency@gmail.com">samadigitalagency@gmail.com</a></li>
+          <li><a href="tel:+221761426172">+221 76 142 61 72</a></li>
+          <li><a href="#">Dakar, Sénégal</a></li>
+          <li><a href="https://www.linkedin.com/company/sama-digital-agency/?viewAsMember=true" target="_blank">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Sama Digital Agency. Tous droits réservés.</span>
+      <span>Dakar, Sénégal</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<div class="page" id="page-services">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label">Nos expertises</div>
+    <h1 class="page-hero-title">Des services <em>pensés</em> pour votre croissance</h1>
+    <p class="page-hero-sub">Une approche complète du digital, de la stratégie à l'exécution, pour des résultats concrets et mesurables.</p>
+  </div>
+  <div class="services-list">
+    <div class="service-row" onclick="openModal('modal-audit')">
+      <img src="images/biljast-social-media-6363633_1280.jpg" alt="Audit Digital" class="row-img">
+      <div class="row-content"><div class="row-num-label">Service 01</div><h3>Diagnostic & Audit Digital</h3><p>Analyse complète de votre présence en ligne pour identifier les faiblesses et opportunités de croissance.</p><div class="row-tags"><span class="row-tag">Audit réseaux sociaux</span><span class="row-tag">Analyse positionnement</span><span class="row-tag">Recommandations</span></div></div>
+      <div class="row-action"><button class="row-btn">Demander un audit <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+    </div>
+    <div class="service-row" onclick="openModal('modal-strategie')">
+      <img src="images/sergeitokmakov-stock-trading-6525081.jpg" alt="Stratégie" class="row-img">
+      <div class="row-content"><div class="row-num-label">Service 02</div><h3>Stratégie de Communication</h3><p>Une stratégie claire et structurée pour atteindre vos objectifs et vous différencier de la concurrence.</p><div class="row-tags"><span class="row-tag">Ligne éditoriale</span><span class="row-tag">Positionnement</span><span class="row-tag">Plan de contenu</span></div></div>
+      <div class="row-action"><button class="row-btn">Créer ma stratégie <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+    </div>
+    <div class="service-row" onclick="openModal('modal-contenu')">
+      <img src="images/kaufdex-facebook-3961465_1280.jpg" alt="Création contenu" class="row-img">
+      <div class="row-content"><div class="row-num-label">Service 03</div><h3>Création de Contenu</h3><p>Des contenus engageants et impactants adaptés à votre audience et à vos objectifs marketing.</p><div class="row-tags"><span class="row-tag">Posts & carrousels</span><span class="row-tag">Vidéos courtes</span><span class="row-tag">Copywriting</span></div></div>
+      <div class="row-action"><button class="row-btn">Créer mon contenu <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+    </div>
+    <div class="service-row" onclick="openModal('modal-reseaux')">
+      <img src="images/geralt-people-3175027_1280.jpg" alt="Gestion réseaux" class="row-img">
+      <div class="row-content"><div class="row-num-label">Service 04</div><h3>Gestion des Réseaux Sociaux</h3><p>Gestion complète de vos comptes sociaux pour assurer une présence régulière et professionnelle.</p><div class="row-tags"><span class="row-tag">Publication</span><span class="row-tag">Interaction communauté</span><span class="row-tag">Animation</span></div></div>
+      <div class="row-action"><button class="row-btn">Gérer mes réseaux <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+    </div>
+    <div class="service-row" onclick="openModal('modal-analyse')">
+      <img src="images/diggitymarketing-search-engine-optimization-4111000_1280.jpg" alt="Analyse" class="row-img">
+      <div class="row-content"><div class="row-num-label">Service 05</div><h3>Analyse & Optimisation</h3><p>Suivi rigoureux des performances et optimisation continue pour maximiser votre retour sur investissement.</p><div class="row-tags"><span class="row-tag">KPI & métriques</span><span class="row-tag">Rapports détaillés</span><span class="row-tag">Optimisation continue</span></div></div>
+      <div class="row-action"><button class="row-btn">Améliorer mes résultats <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BOUTIQUE ===== -->
+<div class="page" id="page-boutique">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label">Boutique digitale</div>
+    <h1 class="page-hero-title">Des outils <em>prêts à l'emploi</em> pour booster ta communication</h1>
+    <p class="page-hero-sub">Nos ressources sont conçues pour les entrepreneurs et community managers qui veulent aller plus loin.</p>
+  </div>
+  <div class="boutique-grid">
+    <div class="product-card" onclick="openModal('prod-canva')">
+      <div class="product-img"><img src="images/diggitymarketing-link-building-4111001.jpg" alt="Templates Canva"><div class="product-badge">Bestseller</div></div>
+      <div class="product-info"><div class="product-cat">Design · Templates</div><div class="product-name">Templates Canva Premium</div><div class="product-desc">Pack de 50+ templates professionnels pour Instagram, LinkedIn et Facebook. Personnalisables en quelques clics.</div><div class="product-footer"><div class="product-price">15 000 <span>FCFA</span></div><button class="product-buy">Acheter</button></div></div>
+    </div>
+    <div class="product-card" onclick="openModal('prod-instagram')">
+      <div class="product-img"><img src="images/cloudlynx-laptop-3781384_640.jpg" alt="Pack Instagram"></div>
+      <div class="product-info"><div class="product-cat">Réseaux sociaux</div><div class="product-name">Pack Visuels Instagram</div><div class="product-desc">100 visuels prêts à poster pour Instagram. Stories, posts, reels covers — cohérents et impactants.</div><div class="product-footer"><div class="product-price">20 000 <span>FCFA</span></div><button class="product-buy">Acheter</button></div></div>
+    </div>
+    <div class="product-card" onclick="openModal('prod-guide')">
+      <div class="product-img"><img src="images/diggitymarketing-content-marketing-4111003_1280.jpg" alt="Guide Marketing"><div class="product-badge">PDF</div></div>
+      <div class="product-info"><div class="product-cat">Formation · Guide</div><div class="product-name">Guide Marketing Digital</div><div class="product-desc">Guide complet de 80 pages pour maîtriser le marketing digital. Stratégie, contenu, analytics — tout y est.</div><div class="product-footer"><div class="product-price">10 000 <span>FCFA</span></div><button class="product-buy">Acheter</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== A PROPOS ===== -->
+<div class="page" id="page-apropos">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label">Notre histoire</div>
+    <h1 class="page-hero-title">À propos de <em>Sama</em> Digital Agency</h1>
+    <p class="page-hero-sub">Nous aidons les entreprises à structurer leur communication digitale et transformer leur présence en ligne en levier de croissance.</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-block"><div class="about-block-label">Mission</div><h2>Notre mission</h2><p>Aider les entreprises à structurer leur communication digitale et à obtenir des résultats concrets. Nous croyons que chaque entreprise mérite une présence digitale forte qui reflète ses valeurs et attire ses clients idéaux.</p></div>
+    <div class="about-block" style="background:var(--gray-dark)"><div class="about-block-label">Vision</div><h2>Notre vision</h2><p>Devenir une référence en marketing digital pour les entrepreneurs et petites structures en Afrique de l'Ouest et au-delà. Nous voulons prouver que la stratégie digitale n'est pas réservée aux grandes entreprises.</p></div>
+  </div>
+  <div style="padding:0 5vw;margin-bottom:28px">
+    <div class="section-tag">Méthode</div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,3vw,44px);font-weight:300;max-width:460px;line-height:1.1;margin-bottom:44px">Notre <em style="font-style:italic;color:rgba(245,244,240,0.35)">approche</em></h2>
+  </div>
+  <div class="approach-grid">
+    <div class="approach-item"><div class="approach-num">01</div><div class="approach-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M2 17L6 9l4 6 4-8 4 6" stroke="#c8f03e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="2" width="22" height="19" rx="2" stroke="#c8f03e" stroke-width="1.2"/></svg></div><h3>Stratégie claire</h3><p>Nous commençons par comprendre votre business, vos objectifs et votre audience avant de définir une stratégie sur mesure, claire et actionnable.</p></div>
+    <div class="approach-item"><div class="approach-num">02</div><div class="approach-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h4l3-6 4 12 3-8 2 4h4" stroke="#c8f03e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Création impactante</h3><p>Nous produisons des contenus engageants qui capturent l'attention, racontent votre histoire et convertissent votre audience en clients fidèles.</p></div>
+    <div class="approach-item"><div class="approach-num">03</div><div class="approach-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#c8f03e" stroke-width="1.2"/><path d="M8 12l3 3 5-6" stroke="#c8f03e" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Analyse continue</h3><p>Nous mesurons, analysons et optimisons en permanence pour garantir que chaque action produit des résultats concrets et mesurables.</p></div>
+  </div>
+  <div class="about-cta">
+    <h2 class="about-cta-title">Prêt à transformer votre présence digitale ?</h2>
+    <button class="btn-primary" onclick="navigate('contact')">Demander un devis <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+</div>
+
+<!-- ===== CONTACT ===== -->
+<div class="page" id="page-contact">
+  <div class="page-hero" style="padding-bottom:48px">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label">Parlons de votre projet</div>
+    <h1 class="page-hero-title">Contactez-<em>nous</em></h1>
+    <p class="page-hero-sub">Parlez-nous de votre projet et recevez une réponse rapide et personnalisée.</p>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-form-side">
+      <h2>Envoyez-nous un message</h2>
+      <p>Remplissez le formulaire et nous vous répondrons dans les 24 heures.</p>
+      <form id="contactForm" onsubmit="sendEmail(event,'contact')">
+        <div class="contact-grid2">
+          <div class="form-group"><label>Nom complet *</label><input type="text" name="from_name" placeholder="Votre nom" required></div>
+          <div class="form-group"><label>Email *</label><input type="email" name="from_email" placeholder="votre@email.com" required></div>
+        </div>
+        <div class="form-group"><label>Téléphone / WhatsApp</label><input type="tel" name="phone" placeholder="+221 XX XXX XX XX"></div>
+        <div class="form-group"><label>Service souhaité</label>
+          <select name="service">
+            <option value="">Sélectionner un service</option>
+            <option>Diagnostic & audit digital</option>
+            <option>Stratégie de communication</option>
+            <option>Création de contenu</option>
+            <option>Gestion des réseaux sociaux</option>
+            <option>Analyse & optimisation</option>
+            <option>Boutique / Produits digitaux</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message *</label><textarea name="message" placeholder="Décrivez votre projet, vos objectifs, vos besoins..." required style="min-height:126px"></textarea></div>
+        <button type="submit" class="form-submit" id="contactBtn">Envoyer le message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+    </div>
+    <div class="contact-info-side">
+      <div class="contact-info-title">Informations de contact</div>
+      <div class="contact-info-items">
+        <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1.5 3l14 5.5-14 6V10l8-1.5L1.5 7V3z" stroke="#c8f03e" stroke-width="1.2" stroke-linejoin="round"/></svg></div><div><div class="contact-info-label">Email</div><div class="contact-info-value">samadigitalagency@gmail.com</div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="4" y="1.5" width="8" height="13" rx="2" stroke="#c8f03e" stroke-width="1.2"/><circle cx="8" cy="11.5" r="0.75" fill="#c8f03e"/></svg></div><div><div class="contact-info-label">WhatsApp</div><div class="contact-info-value">+221 76 142 61 72</div></div></div>
+        <div class="contact-info-item"><div class="contact-info-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5C5.5 1.5 3.5 3.5 3.5 6c0 3.5 4.5 8.5 4.5 8.5S12.5 9.5 12.5 6c0-2.5-2-4.5-4.5-4.5z" stroke="#c8f03e" stroke-width="1.2"/><circle cx="8" cy="6" r="1.75" stroke="#c8f03e" stroke-width="1.2"/></svg></div><div><div class="contact-info-label">Localisation</div><div class="contact-info-value">Dakar, Sénégal</div></div></div>
+      </div>
+      <div>
+        <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px">Réseaux sociaux</div>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/company/sama-digital-agency/?viewAsMember=true" target="_blank" class="social-link"><div class="social-link-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.1"/><path d="M3.5 5v5M3.5 3.5v.1M6.5 10V7c0-1 .5-1.8 1.8-1.8s1.7.8 1.7 1.8v3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></div>LinkedIn</a>
+          <a href="#" class="social-link"><div class="social-link-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="1.5" width="11" height="11" rx="3" stroke="currentColor" stroke-width="1.1"/><circle cx="7" cy="7" r="2.5" stroke="currentColor" stroke-width="1.1"/><circle cx="10.5" cy="3.5" r="0.5" fill="currentColor"/></svg></div>Instagram</a>
+          <a href="#" class="social-link"><div class="social-link-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="3.5" width="11" height="8" rx="1" stroke="currentColor" stroke-width="1.1"/><path d="M1.5 5l5.5 4.5L12.5 5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></svg></div>Facebook</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SERVICE MODALS ===== -->
+<div class="modal-overlay" id="modal-audit" onclick="closeModalOnOverlay(event,'modal-audit')">
+  <div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M14 14l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></div><h2>Diagnostic & Audit Digital</h2><p>Analyse complète de votre présence en ligne pour identifier les faiblesses et opportunités.</p></div><button class="modal-close" onclick="closeModal('modal-audit')">✕</button></div>
+  <div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Audit complet de vos réseaux sociaux (Facebook, Instagram, LinkedIn…)</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Analyse de votre positionnement face à la concurrence</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Identification des points forts et axes d'amélioration</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Recommandations concrètes et plan d'action prioritaire</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapport détaillé livré sous 5 jours ouvrés</span></div></div><button class="modal-cta" onclick="closeModal('modal-audit'); navigate('contact')">Demander un audit →</button></div></div>
+</div>
+<div class="modal-overlay" id="modal-strategie" onclick="closeModalOnOverlay(event,'modal-strategie')">
+  <div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16L6 8l4 6 3-5 3 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>Stratégie de Communication</h2><p>Une stratégie claire et structurée pour atteindre vos objectifs et vous différencier.</p></div><button class="modal-close" onclick="closeModal('modal-strategie')">✕</button></div>
+  <div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Définition de votre ligne éditoriale et ton de communication</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Positionnement clair et différenciant sur votre marché</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Plan de contenu mensuel personnalisé</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Calendrier éditorial sur 3 mois</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Choix des canaux et formats adaptés à votre audience</span></div></div><button class="modal-cta" onclick="closeModal('modal-strategie'); navigate('contact')">Créer ma stratégie →</button></div></div>
+</div>
+<div class="modal-overlay" id="modal-contenu" onclick="closeModalOnOverlay(event,'modal-contenu')">
+  <div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M6 7h8M6 11h6M6 15h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><h2>Création de Contenu</h2><p>Des contenus engageants et impactants pour capturer l'attention de votre audience.</p></div><button class="modal-close" onclick="closeModal('modal-contenu')">✕</button></div>
+  <div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Posts et carrousels Instagram / Facebook optimisés</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Vidéos courtes et Reels engageants</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Copywriting persuasif adapté à votre marque</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Visuels professionnels aux couleurs de votre identité</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Pack mensuel de contenus prêts à publier</span></div></div><button class="modal-cta" onclick="closeModal('modal-contenu'); navigate('contact')">Créer mon contenu →</button></div></div>
+</div>
+<div class="modal-overlay" id="modal-reseaux" onclick="closeModalOnOverlay(event,'modal-reseaux')">
+  <div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="10" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="4" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="16" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M6 9l8-4M6 11l8 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div><h2>Gestion des Réseaux Sociaux</h2><p>Gestion complète de vos comptes pour une présence régulière et professionnelle.</p></div><button class="modal-close" onclick="closeModal('modal-reseaux')">✕</button></div>
+  <div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Publication régulière selon votre calendrier éditorial</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Interaction et réponse à votre communauté</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Animation de votre audience pour booster l'engagement</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Veille concurrentielle et tendances de votre secteur</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapport mensuel de performance</span></div></div><button class="modal-cta" onclick="closeModal('modal-reseaux'); navigate('contact')">Gérer mes réseaux →</button></div></div>
+</div>
+<div class="modal-overlay" id="modal-analyse" onclick="closeModalOnOverlay(event,'modal-analyse')">
+  <div class="modal"><div class="modal-header"><div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 16l4-5 4 4 4-8 4 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2>Analyse & Optimisation</h2><p>Suivi rigoureux des performances pour maximiser votre retour sur investissement.</p></div><button class="modal-close" onclick="closeModal('modal-analyse')">✕</button></div>
+  <div class="modal-body"><div class="modal-features"><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Définition et suivi des KPIs clés de votre activité</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Rapports de performance clairs et actionnables</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Optimisation continue des contenus et stratégies</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Analyse des données pour identifier les opportunités</span></div><div class="modal-feature"><i class="modal-feature-icon">✓</i><span>Recommandations stratégiques basées sur les données réelles</span></div></div><button class="modal-cta" onclick="closeModal('modal-analyse'); navigate('contact')">Améliorer mes résultats →</button></div></div>
+</div>
+
+<!-- PRODUCT MODALS -->
+<div class="modal-overlay" id="prod-canva" onclick="closeModalOnOverlay(event,'prod-canva')">
+  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Templates Canva Premium</h2><p>Pack de 50+ templates professionnels pour toutes vos plateformes sociales.</p></div><button class="modal-close" onclick="closeModal('prod-canva')">✕</button></div>
+  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/diggitymarketing-link-building-4111001.jpg" alt="Canva"></div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>50+ templates Canva entièrement personnalisables</li><li>Formats Instagram, Facebook, LinkedIn, Stories</li><li>Police et palette de couleurs incluses</li><li>Guide d'utilisation PDF</li><li>Accès à vie aux mises à jour</li></ul><div class="faq-item"><div class="faq-q">Est-ce que je peux modifier les templates ?</div><div class="faq-a">Oui, tous les éléments sont modifiables dans Canva gratuit.</div></div><div class="faq-item"><div class="faq-q">Ai-je besoin d'un compte Canva Pro ?</div><div class="faq-a">Non, la version gratuite de Canva suffit.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">15 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-canva'); navigate('contact')">Acheter maintenant →</button></div></div></div>
+</div>
+<div class="modal-overlay" id="prod-instagram" onclick="closeModalOnOverlay(event,'prod-instagram')">
+  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Pack Visuels Instagram</h2><p>100 visuels prêts à poster pour une présence Instagram cohérente et impactante.</p></div><button class="modal-close" onclick="closeModal('prod-instagram')">✕</button></div>
+  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/cloudlynx-laptop-3781384_640.jpg" alt="Instagram"></div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>100 visuels Instagram haute résolution</li><li>Posts, Stories, Reels covers inclus</li><li>Différents thèmes et ambiances</li><li>Fichiers PNG + Canva modifiables</li><li>🎁 Guide des meilleures heures de publication</li></ul><div class="faq-item"><div class="faq-q">Les visuels sont-ils personnalisables ?</div><div class="faq-a">Oui, les fichiers Canva vous permettent de modifier couleurs, textes et logo.</div></div><div class="faq-item"><div class="faq-q">Pour quelle niche sont conçus ces visuels ?</div><div class="faq-a">Polyvalents — business, lifestyle, services, formation.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">20 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-instagram'); navigate('contact')">Acheter maintenant →</button></div></div></div>
+</div>
+<div class="modal-overlay" id="prod-guide" onclick="closeModalOnOverlay(event,'prod-guide')">
+  <div class="modal" style="max-width:700px"><div class="modal-header"><div><h2>Guide Marketing Digital</h2><p>Le guide complet pour maîtriser le marketing digital et développer votre business.</p></div><button class="modal-close" onclick="closeModal('prod-guide')">✕</button></div>
+  <div class="modal-body"><div class="product-modal-grid"><div class="product-detail-img" style="aspect-ratio:4/3"><img src="images/prodeepahmeed-digital-marketing-5816304_1280.jpg" alt="Guide"></div><div><div class="instant-badge">⚡ Téléchargement instantané après paiement</div><p style="font-size:9.5px;color:var(--gray-light);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:9px">Ce que vous recevez</p><ul class="product-detail-list"><li>Guide PDF complet de 80 pages</li><li>Stratégie réseaux sociaux étape par étape</li><li>Templates de calendrier éditorial</li><li>Checklist de lancement de campagne</li><li>Outils gratuits recommandés</li></ul><div class="faq-item"><div class="faq-q">Faut-il des connaissances préalables ?</div><div class="faq-a">Non, accessible aux débutants comme aux profils expérimentés.</div></div><div class="faq-item"><div class="faq-q">Le guide est-il applicable au contexte africain ?</div><div class="faq-a">Absolument — conçu pour le marché sénégalais et ouest-africain.</div></div></div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:22px;padding-top:18px;border-top:1px solid var(--border)"><div style="font-family:var(--font-display);font-size:30px;color:var(--accent)">10 000 <span style="font-size:13px;font-family:var(--font-body);color:var(--gray-light)">FCFA</span></div><button class="modal-cta" style="width:auto;padding:13px 28px" onclick="closeModal('prod-guide'); navigate('contact')">Acheter maintenant →</button></div></div></div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast" id="toast">✓ Message envoyé ! Nous vous répondrons sous 24h.</div>
+<div class="toast" id="toastFallback" style="background:#1a1a1a;color:var(--white);border:1px solid var(--accent)">📧 Votre client mail s'est ouvert avec le message pré-rempli.</div>
+
+<script>
+// ===================================================================
+// EMAIL — CONFIGURATION EMAILJS
+// ===================================================================
+// Pour que les emails arrivent DIRECTEMENT dans votre boîte Gmail :
+// 1. Allez sur https://www.emailjs.com et créez un compte gratuit
+// 2. Dashboard > Email Services > Add New Service > Gmail
+//    → Connectez samadigitalagency@gmail.com → Copiez le Service ID
+// 3. Email Templates > Create New Template
+//    → Collez ce template dans "Content":
+//      De: {{from_name}} ({{from_email}})
+//      Téléphone: {{phone}}
+//      Service: {{service}}
+//      Message: {{message}}
+//    → Dans "To email": samadigitalagency@gmail.com
+//    → Copiez le Template ID
+// 4. Account > General > Public Key → Copiez
+// 5. Remplacez les 3 valeurs ci-dessous:
+
+const EJS_SERVICE  = 'YOUR_SERVICE_ID';   // ex: service_x8k2abc
+const EJS_TEMPLATE = 'YOUR_TEMPLATE_ID';  // ex: template_abc123
+const EJS_KEY      = 'YOUR_PUBLIC_KEY';   // ex: AbCdEfGhIj123456
+
+if (typeof emailjs !== 'undefined' && EJS_KEY !== 'YOUR_PUBLIC_KEY') {
+  emailjs.init({ publicKey: EJS_KEY });
+}
+
+async function sendEmail(e, type) {
+  e.preventDefault();
+  const form = e.target;
+  const btnId = type === 'contact' ? 'contactBtn' : 'homeBtn';
+  const btn = document.getElementById(btnId);
+  const origHTML = btn.innerHTML;
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+
+  const data = {
+    from_name:  form.from_name?.value  || 'Non renseigné',
+    from_email: form.from_email?.value || 'Non renseigné',
+    phone:      form.phone?.value      || 'Non renseigné',
+    service:    form.service?.value    || 'Non précisé',
+    message:    form.message?.value    || 'Aucun message',
+    reply_to:   form.from_email?.value || ''
+  };
+
+  // Mode A : EmailJS configuré → envoi direct
+  if (EJS_KEY !== 'YOUR_PUBLIC_KEY' && typeof emailjs !== 'undefined') {
+    try {
+      await emailjs.send(EJS_SERVICE, EJS_TEMPLATE, data);
+      form.reset();
+      showToast('toast');
+    } catch(err) {
+      console.error(err);
+      // fallback si erreur
+      openMailto(data);
+    }
+  } else {
+    // Mode B : fallback mailto (ouvre le client mail)
+    openMailto(data);
+    form.reset();
+    showToast('toastFallback');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = origHTML;
+}
+
+function openMailto(d) {
+  const s = encodeURIComponent('Nouveau message – Sama Digital Agency');
+  const b = encodeURIComponent(
+    `Nouveau message reçu sur le site web\n` +
+    `─────────────────────────────\n` +
+    `Nom     : ${d.from_name}\n` +
+    `Email   : ${d.from_email}\n` +
+    `Tél     : ${d.phone}\n` +
+    `Service : ${d.service}\n` +
+    `─────────────────────────────\n` +
+    `Message :\n${d.message}`
+  );
+  window.open(`mailto:samadigitalagency@gmail.com?subject=${s}&body=${b}`, '_blank');
+}
+
+function showToast(id) {
+  const t = document.getElementById(id);
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 5000);
+}
+
+// ===== NAVIGATION =====
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  const nav = document.getElementById('nav-' + page);
+  if (nav) nav.classList.add('active');
+  const footer = document.getElementById('siteFooter');
+  if (footer) document.getElementById('page-' + page).appendChild(footer);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  return false;
+}
+const footer = document.getElementById('siteFooter');
+if (footer) document.getElementById('page-home').appendChild(footer);
+
+// ===== MOBILE NAV =====
+function toggleMobileNav() {
+  const nav = document.getElementById('mobileNav');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+
+// ===== MODALS =====
+function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+function closeModalOnOverlay(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => { m.classList.remove('open'); document.body.style.overflow = ''; });
+    if (document.getElementById('mobileNav').classList.contains('open')) toggleMobileNav();
+  }
+});
+
+// ===== SCROLL HEADER =====
+window.addEventListener('scroll', () => {
+  document.getElementById('header').style.background = window.scrollY > 40 ? 'rgba(10,10,10,0.99)' : 'rgba(10,10,10,0.92)';
+});
+</script>
+</body>
+</html>
